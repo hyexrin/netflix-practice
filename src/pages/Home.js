@@ -27,11 +27,11 @@ const Home = () => {
         <div>
             <Banner movie={popularMovies.results[0]} />
 
-            <h1>Popular Movie</h1>
+            <h1>지금 뜨는 영화</h1>
             <MovieSlide movies={popularMovies} />
-            <h1>Top Rated Movie</h1>
+            <h1>평점 높은 영화</h1>
             <MovieSlide movies={topRatedMovies} />
-            <h1>Upcoming Movie</h1>
+            <h1>곧 상영 예정인 영화</h1>
             <MovieSlide movies={upComingMovies} />
         </div>
     )
