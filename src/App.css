@@ -1,4 +1,4 @@
-body{
+body {
   background-color: black !important;
   color: white !important
 }
@@ -8,7 +8,11 @@ body{
   height: 1.5rem;
   border-radius: 25px;
   margin-right: 10px;
-  font-weight: 200;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: red !important;
 }
 
 /* 
@@ -16,8 +20,9 @@ Navigation
 */
 .nav-item {
   color: white;
-  text-decoration: none; 
-  margin-right: 20px;;
+  text-decoration: none;
+  margin-right: 20px;
+  ;
 }
 
 .nav-item:hover {
@@ -56,9 +61,13 @@ Movie Card
   height: 200px;
 }
 
+.movie-card-badges {
+  margin-left: 2px;
+}
+
 .movie-card-overlay {
   opacity: 0;
-  width:100%;
+  width: 100%;
   height: 100%;
 }
 
@@ -73,17 +82,11 @@ Movie Detail
 .movie-detail-container {
   margin-top: 4rem;
   width: 70%;
-  
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-.detail-box--wrap {
-  width: 90%;
-  border-bottom: 1px solid white;
-  margin: 0 10px;
-  padding: 25px 0;
 }
 
 .trailer {
@@ -94,11 +97,22 @@ Movie Detail
 .detail-cotent-box {
   display: flex;
   flex-direction: column;
-  align-items: end;
+  align-items: center;
+  justify-content: center;
+  /* background-color: pink; */
+  margin: 0 1px;
+}
+
+.detail-box--wrap {
+  width: 100%;
+  border-bottom: 1px solid white;
+  margin: 0 10px;
+  padding: 25px 0;
+  /* background-color: yellow; */
 }
 
 .movie-detail-poster {
-  width:80%;
+  width: 100%;
 }
 
 .detail-row-box {
@@ -108,17 +122,58 @@ Movie Detail
 .detail-badge {
   width: 100px;
   height: 20px;
+  background-color: blue;
 }
 
 /* 
 Review
 */
-.false {
+.false,
+.recommend-false {
   display: none;
 }
 
-.detail-show-btn {
+.true {
+  border: 3px solid white;
+}
+
+.recommend-true {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.detail-show-btn-true {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  width: auto;
+  margin-right: 5px;
+  /* resize: none !important;
+  overflow: auto !important;
+  outline: none; */
+  box-shadow: none !important;
+}
+
+.detail-show-btn-false {
+  /* background-color: white; */
+  font-weight: bold;
+  width: auto;
+  margin-right: 5px;
+  /* resize: none !important;
+  overflow: auto !important;
+  outline: none; */
+  box-shadow: none !important;
+}
+
+.detail-show-btn-true:hover {
+  background-color: red;
+  color: white;
+}
+
+.detail-show-btn-false:hover {
   background-color: white;
+  color: red;
 }
 
 .box {
@@ -128,3 +183,48 @@ Review
   width: 100%;
   margin: 20px;
 }
+
+/* 
+Recommend Card
+*/
+
+.recommend-card-col {
+  margin: 5px 0;
+  overflow: hidden !important;
+  text-align: center;
+}
+
+.recommend-card-img {
+  width: 100%;
+}
+
+.test {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.recommend-card {
+ width: 533px;
+ height: 300px;
+ padding: 0px !important;
+ margin: 10px;
+ background-size: cover; 
+ background-repeat: no-repeat;
+ background-position: center;
+}
+
+.overlay {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  /* background-color: pink; */
+  padding: 40px;
+}
+
+.overlay:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.596);
+}
+

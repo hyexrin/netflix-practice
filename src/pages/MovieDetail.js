@@ -4,17 +4,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 import DetailCard from '../components/DetailCard';
+import RecommendCard from '../components/RecommendCard';
 import ReviewCard from '../components/ReviewCard';
 import { movieAction } from '../redux/actions/movieAction';
 
 const MovieDetail = () => {
   let { id } = useParams();
-  // console.log("id?", id);
 
-  const [boxState, setBoxState] = useState(false);
+  const [ReviewBoxState, setReviewBoxState] = useState(false);
+  const [RecommendBoxState, setRecommendBoxState] = useState(false);
 
   const dispatch = useDispatch();
-  const { detailMovieData, reviewDatas, loading } = useSelector(state => state.movie);
+  const { reviewDatas, recommendDatas, loading } = useSelector(state => state.movie);
 
   const getMovieDetail = () => {
     dispatch(movieAction.getMovieDetail(id));
@@ -22,10 +23,7 @@ const MovieDetail = () => {
 
   useEffect(() => {
     getMovieDetail();
-  }, []);
-
-  // console.log(detailMovieData.title);
-  // console.log("reviewDatas", reviewDatas);
+  }, [id]);
 
   if (loading) {
     return <ClipLoader
@@ -36,29 +34,39 @@ const MovieDetail = () => {
   }
   return (
     <Container className='movie-detail-container'>
-      {/* {detailMovieData ?: 'hello'} */}
-      {/* {reviewDatas ?: 'bye'} */}
       <Row>
         <DetailCard />
       </Row>
       <Row className='box'>
-        <Col className='btn-box'>
-          <Button
-            className='detail-show-btn'
-            onClick={() => { setBoxState(!boxState) }}
-            variant="outline-danger"
-          >Reviews</Button>
-          <Button variant="outline-danger">
-            abc
-          </Button>
-        </Col>
+        <Button
+          className={`detail-show-btn-${ReviewBoxState}`}
+          onClick={() => { 
+            setReviewBoxState(!ReviewBoxState) 
+            setRecommendBoxState(false)
+          }}
+          variant="outline-danger"
+        >REVIEWS {"(" + reviewDatas.length + ")"}</Button>
+
+        <Button
+          className={`detail-show-btn-${RecommendBoxState}`}
+          onClick={() => { 
+            setRecommendBoxState(!RecommendBoxState)
+            setReviewBoxState(false) 
+          }}
+          variant="outline-danger"
+        >RELATED MOVIES {"(" + recommendDatas.length + ")"}</Button>
       </Row>
+
       <Row>
-        <Row>
-          <ReviewCard
-            boxState={boxState} />
-        </Row>
+        <ReviewCard
+          boxState={ReviewBoxState} />
       </Row>
+
+      <Row>
+        <RecommendCard 
+        boxState={RecommendBoxState} />
+      </Row>
+
     </Container>
   )
 }

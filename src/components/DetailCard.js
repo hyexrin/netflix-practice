@@ -1,11 +1,13 @@
-import React from 'react'
-import { Col, Container, Row } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react'
+import { Button, Col, Container, Modal, Row } from 'react-bootstrap';
 import { Badge } from 'react-bootstrap'
 import { useSelector } from 'react-redux';
+import YouTube from 'react-youtube';
 
 const DetailCard = () => {
-    const {detailMovieData} = useSelector(state => state.movie);
+    const { detailMovieData } = useSelector(state => state.movie);
 
+    const [modalShow, setModalShow] = useState(false);
     return (
         <>
             <Row>
@@ -51,12 +53,55 @@ const DetailCard = () => {
                         </Row>
                     </Row>
 
-                    <Row className='trailer'><p>Watch Trailer</p></Row>
+                    <Row className='trailer'><p onClick={() => setModalShow(true)}>Watch Trailer</p></Row>
+
+                    <MyVerticallyCenteredModal
+                        show={modalShow}
+                        onHide={() => setModalShow(false)}
+                    />
                 </Col>
             </Row>
 
         </>
     )
 }
+
+function MyVerticallyCenteredModal(props) {
+    const {trailerData} = useSelector(state => state.movie);
+    let trailer = trailerData.find(item => item.name.includes('Trailer'))
+    let key = '';
+    console.log(trailer)
+    if (trailer) {
+        key = trailer.key
+        console.log(key)
+    } else {
+        key = ''
+    }
+    return (
+        <Modal
+            style={{ color: 'black' }}
+            {...props}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Body>
+                <YouTube
+                    videoId={key}
+                    opts={{
+                        width: "100%",
+                        playerVars: {
+                            autoplay: 1, //자동재생 O
+                            rel: 0, 
+                            modestbranding: 1, 
+                        },
+                    }}
+                    //이벤트 리스너 
+                    onEnd={(e) => { e.target.stopVideo(0); }}
+                /></Modal.Body>
+        </Modal>
+    );
+}
+
 
 export default DetailCard

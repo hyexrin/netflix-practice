@@ -60,18 +60,32 @@ function getMovieDetail(id) {
                 `/movie/${id}/reviews?api_key=${API_KEY}&language=en-US-&page=1`
             )
 
-            let [detailMovieData, reviewDatas] = await Promise.all([
+            const getRecomenddApi = api.get(
+                `/movie/${id}/recommendations?api_key=${API_KEY}&language=ko-KR&page=1`
+            )
+
+            const getTrailerApi = api.get(
+                `/movie/${id}/videos?api_key=${API_KEY}&language=en-US`
+            )
+
+            let [detailMovieData, reviewDatas, recommendDatas, trailerData] = await Promise.all([
                 getMovieDetailApi,
-                getReviewApi
+                getReviewApi,
+                getRecomenddApi,
+                getTrailerApi,
             ]);
 
             // console.log("detailMovieData", detailMovieData);
             // console.log("reviewDatas", reviewDatas);
+            // console.log("recommendDatas", recommendDatas)
+            // console.log(trailerData);
             dispatch({
                 type: "GET_MOVIE_DETAIL",
                 payload: {
                     detailMovieData: detailMovieData.data,
                     reviewDatas: reviewDatas.data.results,
+                    recommendDatas: recommendDatas.data.results,
+                    trailerData: trailerData.data.results,
                     loading: false,
                 }
             });

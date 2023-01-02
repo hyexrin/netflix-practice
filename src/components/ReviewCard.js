@@ -3,21 +3,15 @@ import { useSelector } from 'react-redux'
 
 const ReviewCard = ({boxState}) => {
     const {reviewDatas} = useSelector(state => state.movie);
-    console.log(boxState)
+    // console.log(boxState)
 
-    const boxName = '';
-    // boxState === true ? boxName = 'show-box' : boxName = 'hide-box';
-    // if (boxState) {
-    //     boxName = 'show-box';
-    // }
     return (
-    
         <div className={`${boxState}`}>
             {reviewDatas.map(item => (
-                <>
+                <div key={item.id} style={{borderBottom: '1px solid white', margin: '20px'}}>
                     <h5>{item.author}</h5>
                     <p>{item.content}</p>
-                </>
+                </div>
             ))}
         </div>
     )
